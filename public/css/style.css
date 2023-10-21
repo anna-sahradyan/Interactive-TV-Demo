@@ -1,0 +1,61 @@
+*,
+*:after,
+*:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+
+
+}
+
+a {
+    text-decoration: none;
+
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+body {
+    position: relative;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100vh;
+    /*overflow: hidden;*/
+}
+
+html {
+    height: 100%;
+
+}
+
+.container {
+    position: relative;
+    max-width: 1280px;
+    height: 720px;
+    margin:auto;
+
+}
+
+h1 {
+    font-size: 18px;
+    margin: 20px auto;
+}
+
+a {
+
+    color: dimgray;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+}
+
+a:hover, a:focus {
+    cursor: pointer;
+    color: brown;
+
+}
+

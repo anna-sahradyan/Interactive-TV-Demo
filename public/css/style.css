@@ -59,3 +59,33 @@ a:hover, a:focus {
 
 }
 
+@keyframes slide-in {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+
+}
+@keyframes slide-out {
+    from {
+        transform: translateX(0);
+
+    }
+    to {
+        transform: translateX(-100%);
+
+    }
+}
+
+.drawerOpen {
+    animation: slide-in 1000ms;
+    animation-delay: 500ms;
+    animation-fill-mode: backwards;
+}
+
+.drawerClose {
+    animation: slide-out 1000ms;
+    animation-fill-mode: backwards;
+}

@@ -1,33 +1,42 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Home from "./components/Home/Home.jsx";
 import {Route, Routes} from "react-router-dom";
 import FinishInfo from "./components/Home/FinishInfo.jsx";
 
 const App = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [isVideoPaused, setIsVideoPaused] = useState(false);
+    const [shouldVideoPause, setShouldVideoPause] = useState(true);
+    const videoRef = useRef();
     const handleMenuClick = () => {
         setIsDrawerOpen(!isDrawerOpen);
-        const video = document.getElementById("video");
-        if (isDrawerOpen) {
-            setIsDrawerOpen(false,()=>{
-                video.play();
-            });
-        } else {
-            setIsDrawerOpen(true)
-            video.pause();
+        if (!isDrawerOpen) {
+            videoRef.current.pause();
         }
-
+        return;
     };
+    useEffect(() => {
+        if (shouldVideoPause) {
+            videoRef.current.pause();
+            const playTimeout = setTimeout(() => {
+                setShouldVideoPause(false);
+                videoRef.current.play();
+            }, 5000);
+            return () => clearTimeout(playTimeout);
+        }
+    }, [shouldVideoPause]);
     return (
         <>
-            <video autoPlay loop muted className={"fixed bottom-0 right-0 min-h-full min-w-full"}   id="video" controls={isVideoPaused}>
-                <source src="/video.mp4/skiing.mp4" type="video/mp4"/>
-            </video>
-
-            <div className={"container"}>
+            <div className={""}>
+                <video autoPlay loop muted className={" relative  min-h-full min-w-full"} ref={videoRef}>
+                    <source src="/video.mp4/skiing.mp4" type="video/mp4"/>
+                </video>
+            </div>
+            <div className={"container absolute top-0 right-0"}>
                 <Routes>
-                    <Route path={"/"} element={<Home isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}  handleMenuClick={handleMenuClick}/>}/>
+                    <Route path={"/"} element={<Home isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}
+                                                     handleMenuClick={handleMenuClick} videoRef={videoRef}
+                                                     shouldVideoPause={shouldVideoPause}
+                                                     setShouldVideoPause={setShouldVideoPause}/>}/>
                     <Route path={"/finish"} element={<FinishInfo/>}/>
 
                 </Routes>

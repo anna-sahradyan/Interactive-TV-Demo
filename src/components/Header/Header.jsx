@@ -2,12 +2,13 @@ import React from 'react';
 import {VscMenu} from "react-icons/vsc";
 import {Drawer} from "@mui/material";
 import {Link} from "react-router-dom";
+import PhoneOrder from "./PhoneOrder.jsx";
 
 const Header = (props) => {
-
     const closeDrawer = () => {
          props.setIsDrawerOpen(false);
         props.videoRef.current.play();
+
 
     }
     return (
@@ -24,8 +25,8 @@ const Header = (props) => {
                     PaperProps={{
                         sx: {
                             "&.MuiDrawer-paper": {
-                                backgroundColor: "#1E4E73",
-                                width: "600px",
+                                backgroundColor: "#86D3F4",
+                                width: "380px",
                                 backgroundSize: "cover",
                                 backgroundRepeat: "no-repeat",
                                 boxShadow: '0 15px 15px rgba(15, 0, 0, 0.5)',
@@ -34,9 +35,7 @@ const Header = (props) => {
                     }}
                 >
                     {/* Drawer content goes here */}
-                    <div>
-                    <button onClick={closeDrawer}>ok</button>
-                    </div>
+                    <PhoneOrder closeDrawer={closeDrawer} />
                 </Drawer>
                 <div style={{ filter: 'drop-shadow(3px 3px 1px #5f17e5)' }} className="w-42 h-10 text-center">
                     <Link to="/">

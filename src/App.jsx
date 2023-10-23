@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Home from "./components/Home/Home.jsx";
 import {Route, Routes} from "react-router-dom";
 import FinishInfo from "./components/Home/FinishInfo.jsx";
-
+import { Toaster } from "react-hot-toast";
 const App = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [shouldVideoPause, setShouldVideoPause] = useState(true);
@@ -26,8 +26,9 @@ const App = () => {
     }, [shouldVideoPause]);
     return (
         <>
+            <Toaster />
             <div className={""}>
-                <video autoPlay loop muted className={" relative  min-h-full min-w-full"} ref={videoRef}>
+                <video autoPlay loop muted className={" relative min-h-full min-w-full"} ref={videoRef} style={{ width: '100%', height: 'auto' }}>
                     <source src="/video.mp4/skiing.mp4" type="video/mp4"/>
                 </video>
             </div>

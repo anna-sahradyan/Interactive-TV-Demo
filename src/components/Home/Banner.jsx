@@ -1,7 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 
 const Banner = () => {
+    const [isVisible, setIsVisible] = useState(true);
+
+    const handleButtonClick = () => {
+        setIsVisible(false);
+    };
+    if (!isVisible) {
+        return null;
+    }
+
     return (
         <div className="w-[251px] h-[357px] flex flex-col  text-center bg-[#86D3F4]">
             <div className="p-5" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -16,7 +25,7 @@ const Banner = () => {
                     <span>Scan the QR code or press OK.</span>
                 </p>
                 </div>
-                <div className={"p-2"}><Link to={"/finish"}><button className={"rounded-none bg-black w-[156px] h-[52px] text-[#86D3F4] "}>OK</button></Link></div>
+                <div className={"p-2"}><button className={"rounded-none bg-black w-[156px] h-[52px] text-[#86D3F4] "} onClick={handleButtonClick}>OK</button></div>
             </div>
         </div>
 

@@ -21,9 +21,12 @@ const App = () => {
                 setShouldVideoPause(false);
                 videoRef.current.play();
             }, 5000);
+
             return () => clearTimeout(playTimeout);
         }
     }, [shouldVideoPause]);
+
+
     return (
         <>
             <Toaster />

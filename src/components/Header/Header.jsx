@@ -9,7 +9,6 @@ const Header = (props) => {
          props.setIsDrawerOpen(false);
         props.videoRef.current.play();
 
-
     }
     return (
         <>
@@ -27,6 +26,7 @@ const Header = (props) => {
                             "&.MuiDrawer-paper": {
                                 backgroundColor: "#86D3F4",
                                 width: "380px",
+                                minHeight:"720px",
                                 backgroundSize: "cover",
                                 backgroundRepeat: "no-repeat",
                                 boxShadow: '0 15px 15px rgba(15, 0, 0, 0.5)',

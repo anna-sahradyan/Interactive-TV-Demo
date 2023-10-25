@@ -71,12 +71,6 @@ function PhoneOrder(props) {
 
     //?checked value
 
-    // const handleCheckboxChange = () => {
-    //     setIsCheckboxChecked(!isCheckboxChecked);
-    //     if (!isCheckboxChecked) {
-    //         setShowConfirmationWarning(true);
-    //     }
-    // };
     const handleCheckboxChange = () => {
         setIsCheckboxChecked(!isCheckboxChecked);
         if (showConfirmationWarning) {

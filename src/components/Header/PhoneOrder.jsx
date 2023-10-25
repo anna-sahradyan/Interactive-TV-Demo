@@ -71,10 +71,16 @@ function PhoneOrder(props) {
 
     //?checked value
 
+    // const handleCheckboxChange = () => {
+    //     setIsCheckboxChecked(!isCheckboxChecked);
+    //     if (!isCheckboxChecked) {
+    //         setShowConfirmationWarning(true);
+    //     }
+    // };
     const handleCheckboxChange = () => {
         setIsCheckboxChecked(!isCheckboxChecked);
-        if (!isCheckboxChecked) {
-            setShowConfirmationWarning(true);
+        if (showConfirmationWarning) {
+            setShowConfirmationWarning(false);
         }
     };
 
@@ -83,7 +89,7 @@ function PhoneOrder(props) {
     const handleConfirmNumber = () => {
         if (!isCheckboxChecked) {
             setShowConfirmationWarning(true);
-            toast("You did not click the checkbox. 🙄");
+            toast("Looks like the checkbox wasn't clicked, and the number may be incorrect 🙄");
         } else {
             const numericValue = inputValue.replace(/\D/g, "");
             if (numericValue.length < 10) {
@@ -157,7 +163,6 @@ function PhoneOrder(props) {
                                         >
                                             {item}
                                         </button>
-
                                     </div>))}</div>
                             <div className="agree w-full  flex flex-1 items-center py-[20px]">
                                 <div className="checkbox_container w-[60px] h-[52px] flex ">

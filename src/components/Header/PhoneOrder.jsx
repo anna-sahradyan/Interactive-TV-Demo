@@ -83,7 +83,7 @@ function PhoneOrder(props) {
     const handleConfirmNumber = () => {
         if (!isCheckboxChecked) {
             setShowConfirmationWarning(true);
-            toast("You are not checked");
+            toast("You did not click the checkbox. 🙄");
         } else {
             const numericValue = inputValue.replace(/\D/g, "");
             if (numericValue.length < 10) {
@@ -91,7 +91,7 @@ function PhoneOrder(props) {
             } else {
                 setIsConfirmed(true);
                 setShowConfirmationWarning(false)
-                toast("The number is valid");
+                toast("You wrote the number correctly 👌");
             }
         }
     };

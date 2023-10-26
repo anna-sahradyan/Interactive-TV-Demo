@@ -7,7 +7,6 @@ function PhoneOrder(props) {
     const [formattedValue, setFormattedValue] = useState("+7(926)_ _ _-_ _-_ _");
     const [inputValue, setInputValue] = useState("");
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-    const [showConfirmationWarning, setShowConfirmationWarning] = useState(false);
     const [isConfirmed, setIsConfirmed] = useState(false);
     const inputRef = useRef(null);
     const [activeItem, setActiveItem] = useState({
@@ -73,8 +72,8 @@ function PhoneOrder(props) {
 
     const handleCheckboxChange = () => {
         setIsCheckboxChecked(!isCheckboxChecked);
-        if (showConfirmationWarning) {
-            setShowConfirmationWarning(false);
+        if (isConfirmed) {
+            setIsConfirmed(false);
         }
     };
 
@@ -82,15 +81,17 @@ function PhoneOrder(props) {
 
     const handleConfirmNumber = () => {
         if (!isCheckboxChecked) {
-            setShowConfirmationWarning(true);
+            setIsConfirmed(true);
             toast("Looks like the checkbox wasn't clicked, and the number may be incorrect 🙄");
         } else {
             const numericValue = inputValue.replace(/\D/g, "");
             if (numericValue.length < 10) {
+                setIsConfirmed(false)
+                toast("the value must be 10 items");
+
                 return
             } else {
-                setIsConfirmed(true);
-                setShowConfirmationWarning(false)
+                setIsConfirmed(false);
                 toast("You wrote the number correctly 👌");
             }
         }
@@ -144,15 +145,13 @@ function PhoneOrder(props) {
                                             }`}
                                             onClick={() => {
                                                 if (index === 9) {
-                                                    // Handle the "Стереть" (Clear) button
                                                     setFormattedValue('');
                                                     setInputValue('');
                                                     setIsCheckboxChecked(false);
                                                 } else {
-                                                    // Handle digit buttons
                                                     handleButtonClick(item);
                                                 }
-                                                setActiveButtonIndex(index); // Update the active button index
+                                                setActiveButtonIndex(index);
                                             }}
                                         >
                                             {item}
@@ -169,7 +168,7 @@ function PhoneOrder(props) {
                                 <span
                                     className={"text-[14px] text-[#565656] "}>Consent for Personal Data Processing</span>
                             </div>
-                            {showConfirmationWarning ?(<div className={`text-red-600 text-sm m-auto w-[100%] my-2`}>The number is incorrect.</div>):null}
+                            {isConfirmed ?(<div className={`text-red-600 text-sm m-auto w-[100%] my-2`}>The number is incorrect.</div>):null}
                             <div className="w-[246px] h-[28px] border border-gray-700 m-auto ">
                                 <button className="text-gray-700 text-sm font-medium leading-4"
                                         onClick={handleConfirmNumber}>Confirm the number

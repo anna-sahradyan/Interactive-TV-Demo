@@ -43,6 +43,7 @@ const App = () => {
                                                      setShouldVideoPause={setShouldVideoPause}/>}/>
                     <Route path={"/finish"} element={<FinishInfo/>}/>
 
+
                 </Routes>
 
             </div>

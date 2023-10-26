@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {AiOutlineFullscreenExit} from 'react-icons/ai';
 import toast from "react-hot-toast";
-
+import {formatPhoneNumber} from '../../FormatPoneNumber.js';
 
 function PhoneOrder(props) {
     const [formattedValue, setFormattedValue] = useState("+7(926)_ _ _-_ _-_ _");
@@ -9,46 +9,23 @@ function PhoneOrder(props) {
     const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
     const [isConfirmed, setIsConfirmed] = useState(false);
     const inputRef = useRef(null);
+    const [color, setColor] = useState(false)
     const [activeItem, setActiveItem] = useState({
         activeObject: null,
         objects: [1, 2, 3, 4, 5, 6, 7, 8, 9, "Clear", 0]
     });
     const [activeButtonIndex, setActiveButtonIndex] = useState(null);
-    //?formatting value
-    const formatPhoneNumber = (inputValue) => {
-        // Remove all non-numeric characters
-        const numericValue = inputValue.replace(/\D/g, "");
 
-        // Format the numeric value
-        let formattedPhoneNumber = "";
-        if (numericValue.length > 0) {
-            if (["7", "8", "9"].indexOf(numericValue[0]) > -1) {
-                formattedPhoneNumber = "+7";
-                if (numericValue.length > 1) {
-                    formattedPhoneNumber += " (" + numericValue.substring(1, 4);
-                }
-                if (numericValue.length >= 5) {
-                    formattedPhoneNumber += ") " + numericValue.substring(4, 7);
-                }
-                if (numericValue.length >= 8) {
-                    formattedPhoneNumber += "-" + numericValue.substring(7, 9);
-                }
-                if (numericValue.length >= 10) {
-                    formattedPhoneNumber += "-" + numericValue.substring(9, 11);
-                }
-            } else {
-                formattedPhoneNumber = "+" + numericValue.substring(0, 16);
-            }
-        }
 
-        return formattedPhoneNumber;
-    };
-//?change value
+    //?Change Value
     const handleChange = (e) => {
         const inputValue = e.target.value;
         const formattedPhoneNumber = formatPhoneNumber(inputValue);
         setFormattedValue(formattedPhoneNumber);
+
     };
+
+    //?Buttons Part
     const handleButtonClick = (digit) => {
         if (isConfirmed) {
             toast("You have already entered the number and confirmed it. If you want to enter it again, press the 'Clear' button.");
@@ -86,16 +63,32 @@ function PhoneOrder(props) {
         } else {
             const numericValue = inputValue.replace(/\D/g, "");
             if (numericValue.length < 10) {
-                setIsConfirmed(false)
-                toast("the value must be 10 items");
-
+                toast("The value must consist of 10 items ☝️");
+                setIsConfirmed(false);
+                setColor(true)
                 return
             } else {
                 setIsConfirmed(false);
                 toast("You wrote the number correctly 👌");
+                setInputValue("");
+                setFormattedValue("")
+                setIsCheckboxChecked(false);
+                setActiveButtonIndex(null);
             }
         }
     };
+
+
+    //?KeyPress Part
+    const handleKeyDown = (e) => {
+        // let input = e.target;
+        // let numericValue = input.value.replace(/\D/g, "");
+        // formatPhoneNumber(numericValue)
+        // if (numericValue === 8 && numericValue.length === 1) {
+        //
+        // }
+    };
+
 
     return (
         <div className="flex">
@@ -110,10 +103,10 @@ function PhoneOrder(props) {
               Enter your mobile phone number here
             </span>
                     </div>
-                    <div className=" w-64 h-12 flex justify-center items-center  mx-auto mb-[5px] ">
+                    <div className={` w-64 h-12 flex justify-center items-center  mx-auto mb-[5px] `}>
                         <form>
                             <input
-                                className="inputPart w-full h-full text-black bg-transparent font-bold text-2xl border-none focus:border-none outline-none leading-[36.7px]"
+                                className={`inputPart w-full h-full ${!color ? 'text-black' : 'text-red-600'} bg-transparent font-bold text-2xl border-none focus:border-none outline-none leading-[36.7px]`}
                                 id="phoneInput"
                                 type="tel"
                                 ref={inputRef}
@@ -121,7 +114,7 @@ function PhoneOrder(props) {
                                 onChange={handleChange}
                                 maxLength={"18"}
                                 disabled={isConfirmed}
-
+                                onKeyDown={handleKeyDown}
                             />
 
                         </form>
@@ -132,17 +125,17 @@ function PhoneOrder(props) {
             </span>
                     </div>
                     <div className=" num_box w-[284px] h-[278px] my-[10px]   m-auto">
-                        <div className="  num_inner my-[15px] ">
-                            <div className="grid grid-cols-3 gap-1.5">
+                        <div className="num_inner my-[15px] ">
+                            <div className={`grid grid-cols-3 gap-1.5`}>
                                 {activeItem.objects.map((item, index) => (
                                     <div key={item}>
-
                                         <button
-                                            className={`w-[88px] h-[52px] border-2 border-black ${
+                                            className={`w-[88px] h-[52px] border-2 border-black  ${
                                                 item === "Clear" ? 'clear-button' : ''
                                             } ${index === 10 ? 'absolute left-[264px]' : ''} ${
                                                 activeButtonIndex === index ? 'active-button' : ''
                                             }`}
+
                                             onClick={() => {
                                                 if (index === 9) {
                                                     setFormattedValue('');
@@ -153,6 +146,7 @@ function PhoneOrder(props) {
                                                 }
                                                 setActiveButtonIndex(index);
                                             }}
+
                                         >
                                             {item}
                                         </button>
@@ -168,7 +162,8 @@ function PhoneOrder(props) {
                                 <span
                                     className={"text-[14px] text-[#565656] "}>Consent for Personal Data Processing</span>
                             </div>
-                            {isConfirmed ?(<div className={`text-red-600 text-sm m-auto w-[100%] my-2`}>The number is incorrect.</div>):null}
+                            {isConfirmed ? (<div className={`text-red-600 text-sm m-auto w-[100%] my-2`}>The number is
+                                incorrect.</div>) : null}
                             <div className="w-[246px] h-[28px] border border-gray-700 m-auto ">
                                 <button className="text-gray-700 text-sm font-medium leading-4"
                                         onClick={handleConfirmNumber}>Confirm the number

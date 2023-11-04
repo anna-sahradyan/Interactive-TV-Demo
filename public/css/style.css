@@ -115,7 +115,8 @@ input[type="checkbox"] {
     justify-content: center;
 
 }
-label{
+
+label {
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -123,31 +124,35 @@ label{
     position: relative;
 
 }
+
 input[type="text"] {
     appearance: none;
 
 }
 
-input[type="checkbox"]:after{
+input[type="checkbox"]:after {
     content: "\2714";
     font-weight: 400;
     font-size: 38px;
     display: none;
 }
-input[type="checkbox"]:checked:after{
+
+input[type="checkbox"]:checked:after {
     display: block;
     color: black;
 }
 
-.clear-button{
+.clear-button {
     width: 187px !important;
 
 }
+
 .active-button {
     background-color: black;
     color: white;
 }
 
-.incorrect{
-color: red;
+.incorrect {
+    color: red;
 }
+

@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect,} from "react";
 import Home from "./components/Home/Home.jsx";
 import {Route, Routes} from "react-router-dom";
-import FinishInfo from "./components/Home/FinishInfo.jsx";
-import { Toaster } from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
+import {StateContext} from "./context/StateContext.jsx";
+
 const App = () => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [shouldVideoPause, setShouldVideoPause] = useState(true);
-    const videoRef = useRef();
+    const {isDrawerOpen, setIsDrawerOpen, shouldVideoPause, setShouldVideoPause,videoRef} = useContext(StateContext);
+
     const handleMenuClick = () => {
         setIsDrawerOpen(!isDrawerOpen);
         if (!isDrawerOpen) {
@@ -29,20 +29,16 @@ const App = () => {
 
     return (
         <>
-            <Toaster />
+            <Toaster/>
             <div className={""}>
-                <video autoPlay loop muted className={" relative min-h-full min-w-full"} ref={videoRef} style={{ width: '100%', height: 'auto' }}>
+                <video autoPlay loop muted className={" relative min-h-full min-w-full"} ref={videoRef}
+                       style={{width: '100%', height: 'auto'}}>
                     <source src="/video.mp4/skiing.mp4" type="video/mp4"/>
                 </video>
             </div>
             <div className={"container absolute top-0 right-0"}>
                 <Routes>
-                    <Route path={"/"} element={<Home isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}
-                                                     handleMenuClick={handleMenuClick} videoRef={videoRef}
-                                                     shouldVideoPause={shouldVideoPause}
-                                                     setShouldVideoPause={setShouldVideoPause}/>}/>
-                    <Route path={"/finish"} element={<FinishInfo/>}/>
-
+                    <Route path={"/"} element={<Home handleMenuClick={handleMenuClick} />}/>
 
                 </Routes>
 

@@ -16,6 +16,7 @@ export const StateProvider = ({ children }) => {
     const closeDrawer = () => {
         setIsDrawerOpen(false);
         videoRef.current.play();
+        window.location.reload();
 
     }
     return(

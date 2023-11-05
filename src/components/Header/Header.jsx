@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import {useContext} from 'react';
 import {VscMenu} from "react-icons/vsc";
 import {Drawer} from "@mui/material";
 import {Link} from "react-router-dom";
@@ -37,7 +37,6 @@ const Header = ({handleMenuClick}) => {
                         },
                     }}
                 >
-                    {/* Drawer content goes here */}
                     <PhoneOrder />
                 </Drawer>
                 <div style={{filter: 'drop-shadow(3px 3px 1px #5f17e5)'}} className="w-42 h-10 text-center">

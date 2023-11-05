@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import {AiOutlineFullscreenExit} from 'react-icons/ai';
 import toast from "react-hot-toast";
-import {format} from "../../FormatPoneNumber.js";
+import {format} from "../../FormatPhoneNumber.js";
 import FinishInfo from "../Home/FinishInfo.jsx";
 import {StateContext} from "../../context/StateContext.jsx";
 
@@ -25,15 +25,14 @@ function PhoneOrder() {
 
     const [activeButtonIndex, setActiveButtonIndex] = useState(null);
     const [isInCorrect, setIsInCorrect] = useState(false);
-    //?Change Value
+
+    //?Change the input value.
     const handleChange = (e) => {
         const formattedNumber = format(e.target.value)
         setInputValue(formattedNumber)
-        // localStorage.setItem('inputValue', formattedNumber);
     };
 
     //?Buttons Part
-
     const handleButtonClick = (digit) => {
         if (isConfirmed) {
             toast("You have already entered the number and confirmed it. If you want to enter it again, press the 'Clear' button.");
@@ -47,17 +46,15 @@ function PhoneOrder() {
             setInputValue("+7" + digit);
         } else {
             setInputValue(newValue);
-            // localStorage.setItem('inputValue', newValue);
+
         }
         const formattedPhoneNumber = format(newValue);
         setInputValue(formattedPhoneNumber);
 
-
     };
 
 
-    //?checked value
-
+    //?Put a checkmark
     const handleCheckboxChange = () => {
         setIsCheckboxChecked(!isCheckboxChecked);
         if (isConfirmed) {
@@ -65,7 +62,7 @@ function PhoneOrder() {
         }
     };
 
-    //!confirm value
+    //!Number confirmation
     function handleConfirmNumber() {
         const numericValue = inputValue.replace(/\D/g, "");
         if (!isCheckboxChecked && numericValue.length < 11) {
@@ -90,7 +87,6 @@ function PhoneOrder() {
     }
 
     //?KeyPress Part
-
     const handleKeyDown = (e) => {
         if (e.keyCode === 8) {
             const inputElement = e.target;
